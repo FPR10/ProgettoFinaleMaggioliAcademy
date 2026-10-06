@@ -1,0 +1,9 @@
+<header><a routerLink="/">Rubrica anagrafiche</a>
+  @if (auth.user()) { <button type="button" (click)="logout()">Esci ({{ auth.user() }})</button> }
+</header>
+<main>
+  @if (notifications.message()) {
+    <div class="notice" role="alert">{{ notifications.message() }} <button type="button" (click)="notifications.clear()">Chiudi</button></div>
+  }
+  <router-outlet />
+</main>

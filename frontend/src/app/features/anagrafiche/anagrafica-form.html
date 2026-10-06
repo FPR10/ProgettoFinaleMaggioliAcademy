@@ -1,0 +1,17 @@
+<a routerLink="/" class="back">← Torna alle anagrafiche</a>
+<div class="page-heading"><div><p class="eyebrow">Rubrica</p><h1>{{ id === null ? 'Nuova anagrafica' : 'Modifica anagrafica' }}</h1><p>I campi sono obbligatori, salvo il telefono.</p></div></div>
+@if (loading()) { <p role="status">Caricamento anagrafica…</p> }
+@if (loadError()) { <div class="notice error" role="alert">{{ loadError() }} <button type="button" (click)="load()">Riprova</button></div> }
+@if (!loading() && !loadError()) {
+  <form class="form-panel" [formGroup]="form" (ngSubmit)="save()">
+    @if (error()) { <p class="notice error" role="alert">{{ error() }}</p> }
+    <div class="form-grid">
+      @for (field of fields; track field.key) {
+        <div class="field"><label [for]="field.key">{{ field.label }}</label><input [id]="field.key" [type]="field.type" [autocomplete]="field.autocomplete" [formControlName]="field.key" [attr.aria-invalid]="fieldError(field.key) ? 'true' : null" [attr.aria-describedby]="fieldError(field.key) ? field.key + '-error' : null" />
+        @if (fieldError(field.key)) { <small class="field-error" [id]="field.key + '-error'">{{ fieldError(field.key) }}</small> }
+        </div>
+      }
+    </div>
+    <div class="form-actions"><a class="button" routerLink="/">Annulla</a><button class="primary" type="submit" [disabled]="saving()">{{ saving() ? 'Salvataggio…' : 'Salva anagrafica' }}</button></div>
+  </form>
+}

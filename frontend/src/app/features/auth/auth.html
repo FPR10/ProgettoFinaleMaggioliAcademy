@@ -1,0 +1,9 @@
+<div class="page-heading"><div><p class="eyebrow">Rubrica</p><h1>Accedi</h1><p>Inserisci le credenziali per gestire le anagrafiche.</p></div></div>
+<form class="form-panel" [formGroup]="form" (ngSubmit)="login()">
+  @if (error()) { <p class="notice error" role="alert">{{ error() }}</p> }
+  <div class="form-grid">
+    <div class="field"><label for="user">Utente</label><input id="user" autocomplete="username" formControlName="user" required /></div>
+    <div class="field"><label for="password">Password</label><input id="password" type="password" autocomplete="current-password" formControlName="password" required /></div>
+  </div>
+  <div class="form-actions"><button class="primary" type="submit" [disabled]="busy()">{{ busy() ? 'Accesso in corso…' : 'Accedi' }}</button></div>
+</form>
