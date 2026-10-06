@@ -35,10 +35,10 @@ public class Anagrafica {
     @Column (name="codice_fiscale", nullable=false, unique=true, length=16)
     private String codiceFiscale;
 
-    @Column (name="email", nullable=false, length=16)
+    @Column (name="email", nullable=false, length=254)
     private String email;
 
-    @Column (name="telefono", unique=true, length=16)
+    @Column (name="telefono", length=30)
     private String telefono;
 
 

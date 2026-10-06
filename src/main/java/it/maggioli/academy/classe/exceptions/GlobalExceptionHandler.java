@@ -1,6 +1,6 @@
 package it.maggioli.academy.classe.exceptions;
 
-import java.util.List;
+import java.util.stream.Collectors;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -36,9 +36,9 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         
         ProblemDetail body = problem(HttpStatus.BAD_REQUEST,
                 "Errore di validazione", "Uno o piu campi della richiesta non sono validi.");
-        List<ValidationError> errors = ex.getBindingResult().getFieldErrors().stream()
-                .map(error -> new ValidationError(error.getField(), error.getDefaultMessage()))
-                .toList();
+        var errors = ex.getBindingResult().getFieldErrors().stream()
+                .collect(Collectors.groupingBy(error -> error.getField(),
+                        Collectors.mapping(error -> error.getDefaultMessage(), Collectors.toList())));
         body.setProperty("errors", errors);
         return handleExceptionInternal(ex, body, headers, status, request);
     }
@@ -56,5 +56,4 @@ public class GlobalExceptionHandler extends ResponseEntityExceptionHandler {
         return body;
     }
 
-    public record ValidationError(String field, String message) {}
 }

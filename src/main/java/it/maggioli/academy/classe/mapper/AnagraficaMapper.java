@@ -23,7 +23,7 @@ public class AnagraficaMapper {
         a.setCognome(r.cognome().trim());
         a.setCodiceFiscale(r.codiceFiscale().toUpperCase());
         a.setEmail(r.email().trim());
-        a.setTelefono(r.telefono().trim());
+        a.setTelefono(r.telefono() == null || r.telefono().isBlank() ? null : r.telefono().trim());
         a.setDataNascita(r.dataNascita());
     }
 }

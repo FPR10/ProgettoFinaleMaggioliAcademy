@@ -13,8 +13,8 @@ public record AnagraficaRequest(
 
     @NotBlank @Size(max = 50) String nome,
     @NotBlank @Size(max = 50) String cognome,
-    @NotBlank @Pattern(regexp="[A-Za-z0-9]{16}") String codiceFiscale,
-    @NotBlank @Email String email,
-    @NotBlank @Email String telefono,
+    @NotBlank @Pattern(regexp="^[A-Z]{6}[0-9]{2}[A-Z][0-9]{2}[A-Z][0-9]{3}[A-Z]$") String codiceFiscale,
+    @NotBlank @Email @Size(max = 254) String email,
+    @Size(max = 30) String telefono,
     @NotNull @Past LocalDate dataNascita
 ) {}
